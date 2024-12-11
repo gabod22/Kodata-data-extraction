@@ -10,6 +10,8 @@ K_LOGIN_ENDPOINT = "https://one.kordata.mx/api/commons/iniciar-sesion"
 K_LOGOUT_ENDPOINT = "https://one.kordata.mx/api/commons/cerrar-sesion"
 K_MASIVE_LOGOUT_ENDPOINT = "https://one.kordata.mx/api/commons/cerrar-sesion-masivo"
 
+START_DATE = "2024-12-05"
+
 
 def mide_tiempo(funcion):
     def funcion_medida(*args, **kwargs):
@@ -109,7 +111,7 @@ def get_sales_invoices():
     query_report_list_invoices ={
         "operationName": "some",
         "variables": {},
-        "query": "query some {\n  BasesReportesGenerarReportePorId(\n    data: {id: 100000105}\n    parametros: {columnasAdicionales: [{id: -1, baseCampoId: 2471, seLect: false, wheRe: true, groUp: false, baseReporteCondicionCatalogoId: 25, groupAscendente: null, andOr: \"AND\", visible: true, esId: false, isDeleted: false, secuencia: -1, baseReporteId: 100000105}], condicionesAdicionales: [{valorInicial: \"2024-11-29\", valorFinal: \"\", baseReporteColumnaId: -1}]}\n  ) {\n    datosListasSeleccion\n    resultadoReporteHashmap\n    baseReporte {\n      id\n      carpetaId\n      parasiteParent\n      compartida\n      esQuery\n      nombreReporte\n      tablaPrincipalId\n      moduloPrincipalId\n      baseReporteTipoId\n      baseReporteIdDetalle\n      basesReportesColumnas {\n        id\n        basesCampos {\n          nombreEtiqueta\n        }\n      }\n      basesReportesPivotConfiguracion {\n        baseReporteColumnaId\n        baseCampoAlias\n        pivotColumna\n        pivotRenglon\n        pivotValor\n      }\n    }\n  }\n}"
+        "query": "query some {\n  BasesReportesGenerarReportePorId(\n    data: {id: 100000105}\n    parametros: {columnasAdicionales: [{id: -1, baseCampoId: 2471, seLect: false, wheRe: true, groUp: false, baseReporteCondicionCatalogoId: 25, groupAscendente: null, andOr: \"AND\", visible: true, esId: false, isDeleted: false, secuencia: -1, baseReporteId: 100000105}], condicionesAdicionales: [{valorInicial: \"" +START_DATE+ "\", valorFinal: \"\", baseReporteColumnaId: -1}]}\n  ) {\n    datosListasSeleccion\n    resultadoReporteHashmap\n    baseReporte {\n      id\n      carpetaId\n      parasiteParent\n      compartida\n      esQuery\n      nombreReporte\n      tablaPrincipalId\n      moduloPrincipalId\n      baseReporteTipoId\n      baseReporteIdDetalle\n      basesReportesColumnas {\n        id\n        basesCampos {\n          nombreEtiqueta\n        }\n      }\n      basesReportesPivotConfiguracion {\n        baseReporteColumnaId\n        baseCampoAlias\n        pivotColumna\n        pivotRenglon\n        pivotValor\n      }\n    }\n  }\n}"
     }
     response = requests.post(
         K_ENDPOING,
@@ -137,10 +139,10 @@ def get_sales_notes():
         "authorization": "Bearer " + currentToken,
     }
     query_report_list_sales_notes = {
-        "operationName": "some",
-        "variables": {},
-        "query": 'query some {\n  BasesReportesGenerarReportePorId(\n    data: {id: 100000104}\n    parametros: {columnasAdicionales: [{id: -1, baseCampoId: 2519, seLect: false, wheRe: true, groUp: false, baseReporteCondicionCatalogoId: 25, groupAscendente: null, andOr: "AND", visible: true, esId: false, isDeleted: false, secuencia: -1, baseReporteId: 100000104}], condicionesAdicionales: [{valorInicial: "2024-11-29", valorFinal: "", baseReporteColumnaId: -1}]}\n  ) {\n    datosListasSeleccion\n    resultadoReporteHashmap\n    baseReporte {\n      id\n      carpetaId\n      parasiteParent\n      compartida\n      esQuery\n      nombreReporte\n      tablaPrincipalId\n      moduloPrincipalId\n      baseReporteTipoId\n      baseReporteIdDetalle\n      basesReportesColumnas {\n        id\n        basesCampos {\n          nombreEtiqueta\n        }\n      }\n      basesReportesPivotConfiguracion {\n        baseReporteColumnaId\n        baseCampoAlias\n        pivotColumna\n        pivotRenglon\n        pivotValor\n      }\n    }\n  }\n}',
-    }
+            "operationName": "some",
+            "variables": {},
+            "query": "query some {\n  BasesReportesGenerarReportePorId(\n    data: {id: 100000104}\n    parametros: {columnasAdicionales: [{id: -1, baseCampoId: 2519, seLect: false, wheRe: true, groUp: false, baseReporteCondicionCatalogoId: 25, groupAscendente: null, andOr: \"AND\", visible: true, esId: false, isDeleted: false, secuencia: -1, baseReporteId: 100000104}], condicionesAdicionales: [{valorInicial: \"" +START_DATE+ "\", valorFinal: \"\", baseReporteColumnaId: -1}]}\n  ) {\n    datosListasSeleccion\n    resultadoReporteHashmap\n    baseReporte {\n      id\n      carpetaId\n      parasiteParent\n      compartida\n      esQuery\n      nombreReporte\n      tablaPrincipalId\n      moduloPrincipalId\n      baseReporteTipoId\n      baseReporteIdDetalle\n      basesReportesColumnas {\n        id\n        basesCampos {\n          nombreEtiqueta\n        }\n      }\n      basesReportesPivotConfiguracion {\n        baseReporteColumnaId\n        baseCampoAlias\n        pivotColumna\n        pivotRenglon\n        pivotValor\n      }\n    }\n  }\n}"
+        }
     response = requests.post(
         K_ENDPOING,
         json=query_report_list_sales_notes,
@@ -194,19 +196,19 @@ def join_notes_and_items():
         note["items"] = [sub_item for sub_item in sales_notes_items if sub_item["id"] == note["id"]]
     
     for note in sales_notes:
-        note["phone"] = [client['Teléfono'] for client in clients if client["Nombre del cliente"] == note["Cliente - Nombre del cliente"]][0]
+        note["phone"] = [client['Teléfono'] for client in clients if client["Nombre del cliente"] == note["Cliente - Nombre del cliente"]]
         
     for invoice in invoices:
         # Filtrar elementos de array2 que coincidan en id
         invoice["items"] = [sub_item for sub_item in invoices_items if sub_item["id"] == invoice["id"]]
     
     for invoice in invoices:
-        invoice["phone"] = [client['Teléfono'] for client in clients if client["Nombre del cliente"] == invoice["Cliente - Nombre del cliente"]][0]
+        invoice["phone"] = [client['Teléfono'] for client in clients if client["Nombre del cliente"] == invoice["Cliente - Nombre del cliente"]]
         
     data = invoices + sales_notes
     
-    # dictlist_to_str_list(data, [])
-
+    print(dictlist_to_str_list(data, ['Nombre del cliente', 'Folio']))
+    # print(data)
     json_object = json.dumps(data, indent=4)
     with open("sample.json", "w",encoding='utf8') as outfile:
         outfile.write(json_object)
@@ -217,11 +219,12 @@ def dictlist_to_str_list(list, cols):
     for row in list:
         text = ""
         for col in cols:
-            text = text + str(list[col][row])
+            text = text + str(list[row][col])
             if col != len(list) - 1:
                 text = text + " - "
         text = text.replace("\n", "").replace("\r", "").strip()
         result.append(text)
+    return result
     
 
 def save_device_to_kordata():
@@ -260,12 +263,23 @@ def save_os_to_kordata():
         headers=headers,
     )
 
+def get_os_from_kordata():
+    currentToken = get_current_token()
 
-
-payload_service_order ={
-  "variables": {},
-  "query": "{\n  OrdenesServiciosBuscarPorId(data: {id: 4513}) {\n    cotizacionId\n    sucursalId\n    almacenId\n    clienteId\n    descuento\n    subtotal\n    importeTotal\n    impuestos\n    listaPrecioId\n    monedaId\n    comprasVentasRelaciones {\n      id\n      ordenServicioId\n      compraId\n      isDeleted\n    }\n    id\n    estado\n    monedaTipoCambio\n    folioPrefijo\n    vehiculoId\n    ordenesServiciosVehiculos {\n      id\n      ordenServicioId\n      vehiculoId\n      isDeleted\n    }\n    automotrizKms\n    campoAdicionalTexto2\n    nombreEntrego\n    ordenesServiciosDetalle {\n      id\n      vehiculoId\n      productoId\n      descripcion\n      cantidad\n      precioUnitario\n      tasasDocumentos {\n        id\n        monto\n        montoImporte\n        ordenServicioDetalleId\n        tasaId\n        tasaMontoTipo\n      }\n      impuestos\n      porcentajeDescuento\n      subtotal\n      ordenServicioId\n      asesorServicioId\n      trazabilidadId\n      horasTrabajo\n      detallePaquete {\n        id\n        productoId\n        sku\n        descripcion\n        cantidad\n        cantidadUnitaria\n        costo\n        importe\n        trazabilidadId\n        isDeleted\n      }\n    }\n    ejecutivoId\n    comentarios\n    fechaRegistro\n    usuarioRegistro\n    fechaModificacion\n    usuarioModificador\n    fechaRevision\n    usuarioRevision\n    fechaReparacion\n    usuarioReparacion\n    fechaCerrada\n    usuarioCerrada\n    fechaCerradaSinFactura\n    usuarioCerradaSinFactura\n    fechaFacturada\n    usuarioFacturada\n    fechaCancelacion\n    usuarioCancelo\n  }\n}"
-}
+    headers = {
+        "user-agent": "pixel/0.0.1",
+        "Content-Type": "application/json",
+        "authorization": "Bearer " + currentToken,
+    }
+    payload_service_order ={
+    "variables": {},
+    "query": "{\n  OrdenesServiciosBuscarPorId(data: {id: 4513}) {\n    cotizacionId\n    sucursalId\n    almacenId\n    clienteId\n    descuento\n    subtotal\n    importeTotal\n    impuestos\n    listaPrecioId\n    monedaId\n    comprasVentasRelaciones {\n      id\n      ordenServicioId\n      compraId\n      isDeleted\n    }\n    id\n    estado\n    monedaTipoCambio\n    folioPrefijo\n    vehiculoId\n    ordenesServiciosVehiculos {\n      id\n      ordenServicioId\n      vehiculoId\n      isDeleted\n    }\n    automotrizKms\n    campoAdicionalTexto2\n    nombreEntrego\n    ordenesServiciosDetalle {\n      id\n      vehiculoId\n      productoId\n      descripcion\n      cantidad\n      precioUnitario\n      tasasDocumentos {\n        id\n        monto\n        montoImporte\n        ordenServicioDetalleId\n        tasaId\n        tasaMontoTipo\n      }\n      impuestos\n      porcentajeDescuento\n      subtotal\n      ordenServicioId\n      asesorServicioId\n      trazabilidadId\n      horasTrabajo\n      detallePaquete {\n        id\n        productoId\n        sku\n        descripcion\n        cantidad\n        cantidadUnitaria\n        costo\n        importe\n        trazabilidadId\n        isDeleted\n      }\n    }\n    ejecutivoId\n    comentarios\n    fechaRegistro\n    usuarioRegistro\n    fechaModificacion\n    usuarioModificador\n    fechaRevision\n    usuarioRevision\n    fechaReparacion\n    usuarioReparacion\n    fechaCerrada\n    usuarioCerrada\n    fechaCerradaSinFactura\n    usuarioCerradaSinFactura\n    fechaFacturada\n    usuarioFacturada\n    fechaCancelacion\n    usuarioCancelo\n  }\n}"
+    }
+    response = requests.post(
+        K_ENDPOING,
+        json=payload_service_order,
+        headers=headers,
+    )
 
 join_notes_and_items()
 
